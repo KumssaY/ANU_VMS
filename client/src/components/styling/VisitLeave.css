@@ -1,0 +1,54 @@
+/* VisitLeave.css */
+
+.visit-leave-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #000;
+  color: #fff;
+  font-size: 1.5em;
+  position: relative;
+  overflow: hidden;
+}
+
+h2 {
+  z-index: 10;
+  margin-bottom: 20px;
+}
+
+.wave {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 5px solid transparent;
+  animation: wave-animation 2.5s ease-out infinite;
+  opacity: 0.6;
+}
+
+.wave:nth-child(2) {
+  animation-delay: 0.5s;
+}
+.wave:nth-child(3) {
+  animation-delay: 1s;
+}
+
+/* Keyframe animation for the wave effect */
+@keyframes wave-animation {
+  0% {
+      transform: scale(1);
+      border-color: #FAC823; /* Yellow at the center */
+      opacity: 1;
+  }
+  50% {
+      border-color: #FF8C00; /* Transition color */
+      opacity: 0.7;
+  }
+  100% {
+      transform: scale(5);
+      border-color: #FF0000; /* Red at the edges */
+      opacity: 0;
+  }
+}

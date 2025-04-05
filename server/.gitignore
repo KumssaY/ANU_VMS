@@ -1,0 +1,8 @@
+.env
+/.venv
+/__pycache__
+/controllers/__pycache__
+/models/__pycache__
+/routes/__pycache__
+/utils/__pycache__
+/python-3.12.8-amd64.exe

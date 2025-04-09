@@ -6,6 +6,8 @@ import { useState, useEffect } from 'react';
 import { reportIncident, getVisitorIncidentsByNationalId } from '@/app/actions/visitor';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { Eye, EyeOff } from 'lucide-react';
+
 
 interface IncidentComponentProps {
   visitor: {
@@ -22,6 +24,7 @@ export default function IncidentComponent({ visitor, nationalId }: IncidentCompo
   const [incidentDetails, setIncidentDetails] = useState('');
   const [secretCode, setSecretCode] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [showSecret, setShowSecret] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -112,6 +115,10 @@ export default function IncidentComponent({ visitor, nationalId }: IncidentCompo
     router.push(`/incidents?national_id=${encodedNationalId}`);
   };
 
+  const toggleSecretVisibility = () => {
+    setShowSecret(!showSecret);
+  };
+
   return (
     <div className="space-y-6">
       {/* Report Incident Form */}
@@ -159,15 +166,28 @@ export default function IncidentComponent({ visitor, nationalId }: IncidentCompo
               <label htmlFor="secret_code" className="block text-sm font-medium text-gray-300">
                 Secret Code:
               </label>
-              <input
-                type="password"
-                id="secret_code"
-                value={secretCode}
-                onChange={(e) => setSecretCode(e.target.value)}
-                className="w-full rounded-lg border border-gray-600 bg-[#2a2a2a] text-gray-200 shadow-sm focus:border-yellow-400 focus:ring-yellow-400 focus:ring-1 placeholder-gray-500 py-2 px-3"
-                placeholder="Enter your secret code"
-                required
-              />
+              <div className="relative">
+            <input
+              type={showSecret ? "text" : "password"}
+              id="secret_code"
+              value={secretCode}
+              onChange={(e) => setSecretCode(e.target.value)}
+              className="w-full rounded-lg border border-gray-600 bg-[#2a2a2a] text-gray-200 shadow-sm focus:border-yellow-400 focus:ring-yellow-400 focus:ring-1 placeholder-gray-500 py-2 px-3"
+              placeholder="Enter your authorization code"
+              required
+            />
+            <button
+              type="button"
+              onClick={toggleSecretVisibility}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white focus:outline-none"
+            >
+              {showSecret ? (
+                <EyeOff size={20} />
+              ) : (
+                <Eye size={20} />
+              )}
+            </button>
+          </div>
             </div>
             
             <button

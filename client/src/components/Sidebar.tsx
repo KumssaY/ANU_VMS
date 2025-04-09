@@ -125,14 +125,14 @@ export default function Sidebar() {
           
           {/* Security-specific links */}
           {role === "security" && (
-            <div className="mb-6 space-y-1">
+            <div className="mb-6 space-y-1 ">
               {/* Security navigation links would go here */}
-              <h2 className="mb-2 px-4 text-xs font-semibold uppercase text-gray-400">Visitor Management</h2>
-              <Link href="/security/visitors" 
-                    className={`flex items-center rounded-md px-4 py-2 ${pathname === '/security/visitors' ? 'bg-blue-600' : 'hover:bg-gray-800'}`}>
-                <span>Visitor Check-in</span>
+              <h2 className="mb-2 px-4 text-xs font-semibold uppercase text-gray-400">Security code managment</h2>
+              <Link href="/security/update-code" 
+                    className={`flex items-center rounded-md px-4 py-2 ${pathname === '/security/update-code' ? 'bg-blue-600' : 'hover:bg-gray-800'}`}>
+                <span>Update Security Code</span>
               </Link>
-              <Link href="/security/visits" 
+              {/* <Link href="/security/visits" 
                     className={`flex items-center rounded-md px-4 py-2 ${pathname === '/security/visits' ? 'bg-blue-600' : 'hover:bg-gray-800'}`}>
                 <span>Visit Records</span>
               </Link>
@@ -145,7 +145,7 @@ export default function Sidebar() {
               <Link href="/security/bans" 
                     className={`flex items-center rounded-md px-4 py-2 ${pathname === '/security/bans' ? 'bg-blue-600' : 'hover:bg-gray-800'}`}>
                 <span>Check Ban Status</span>
-              </Link>
+              </Link> */}
             </div>
           )}
         </nav>

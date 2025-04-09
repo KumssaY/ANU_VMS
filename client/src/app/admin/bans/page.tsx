@@ -55,7 +55,7 @@ export default async function AdminBansPage() {
             <tr className="text-gray-300 border-b border-gray-700">
               <th className="pb-4 w-24 text-left">ID</th>
               <th className="pb-4 w-48 text-left">Visitor</th>
-              <th className="pb-4 text-left">Reason</th>
+              <th className="pb-4  text-left">Reason</th>
               <th className="pb-4 w-48 text-left">Issued By</th>
               <th className="pb-4 w-48 text-left">Lifted By</th>
               <th className="pb-4 w-40 text-left">Issued At</th>

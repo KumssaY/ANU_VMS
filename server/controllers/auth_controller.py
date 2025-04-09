@@ -78,7 +78,7 @@ def register_security_personnel():
     security.set_password(data["password"])
     security.set_national_id(data["national_id"])  # Encrypt national ID
 
-    # ✅ Allow manual security code if provided
+    #Allow manual security code if provided
     if "secret_code" in data and data["secret_code"]:
         security.set_secret_code(data["secret_code"])
 
@@ -150,6 +150,34 @@ def deactivate_security_personnel():
     try:
         db.session.commit()
         return jsonify({"message": "Security personnel deactivated successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": "Database error", "details": str(e)}), 500
+
+def activate_security_personnel():
+    """Admin can deactivate a Security Personnel using their email instead of national ID."""
+    
+    if not is_admin():
+        return jsonify({"error": "Access denied. Admins only."}), 403
+
+    data = request.get_json()
+    email = data.get("email")
+
+    if not email:
+        return jsonify({"error": "Email is required"}), 400
+
+    # Find security personnel by email
+    target_user = SecurityPersonnel.query.filter_by(email=email).first()
+
+    if not target_user:
+        return jsonify({"error": "Security personnel not found"}), 404
+
+    # Mark as active instead of deleting
+    target_user.is_active = True
+
+    try:
+        db.session.commit()
+        return jsonify({"message": "Security personnel activated successfully"}), 200
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": "Database error", "details": str(e)}), 500

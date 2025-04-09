@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { updateSecurityCode, getCurrentUserEmail } from "@/app/actions/auth";
 import { useRouter } from "next/navigation";
+import { Eye, EyeOff } from 'lucide-react';
+
 
 export default function UpdateSecurityCodePage() {
   const [currentCode, setCurrentCode] = useState("");
@@ -12,6 +14,7 @@ export default function UpdateSecurityCodePage() {
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const [userEmail, setUserEmail] = useState("");
+  const [showSecret, setShowSecret] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -72,6 +75,10 @@ export default function UpdateSecurityCodePage() {
     }
   };
 
+  const toggleSecretVisibility = () => {
+    setShowSecret(!showSecret);
+  };
+
   return (
     <div className="ml-64 p-8">
       <h1 className="mb-6 text-3xl font-bold">Update Security Code</h1>
@@ -88,34 +95,61 @@ export default function UpdateSecurityCodePage() {
         </div>
       )}
 
-      <div className="rounded-lg bg-gray-800 p-6 shadow-md">
+      <div className="rounded-lg bg-gray-800 p-6 shadow-md max-w-md">
         <form onSubmit={handleSubmit} className="max-w-md">
           <div className="mb-4">
             <label htmlFor="current_code" className="mb-2 block text-sm font-medium">
               Current Security Code
             </label>
+            <div className="relative">
             <input
               id="current_code"
-              type="password"
+              type={showSecret ? "text" : "password"}
               value={currentCode}
               onChange={(e) => setCurrentCode(e.target.value)}
               className="w-full rounded-md border border-gray-700 bg-gray-900 px-3 py-2 text-white focus:border-blue-500 focus:outline-none"
               required
             />
+            <button
+          type="button"
+          onClick={toggleSecretVisibility}
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white focus:outline-none"
+        >
+          {showSecret ? (
+            <EyeOff size={20} />
+          ) : (
+            <Eye size={20} />
+          )}
+        </button>
+      </div>
           </div>
 
           <div className="mb-4">
             <label htmlFor="new_code" className="mb-2 block text-sm font-medium">
               New Security Code
             </label>
+            <div className="relative">
+
             <input
               id="new_code"
-              type="password"
+              type={showSecret ? "text" : "password"}
               value={newCode}
               onChange={(e) => setNewCode(e.target.value)}
               className="w-full rounded-md border border-gray-700 bg-gray-900 px-3 py-2 text-white focus:border-blue-500 focus:outline-none"
               required
             />
+            <button
+          type="button"
+          onClick={toggleSecretVisibility}
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white focus:outline-none"
+        >
+          {showSecret ? (
+            <EyeOff size={20} />
+          ) : (
+            <Eye size={20} />
+          )}
+        </button>
+      </div>
           </div>
 
           <div className="mb-6">

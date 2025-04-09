@@ -49,9 +49,9 @@ class Visitor(User):
     __tablename__ = 'visitors'
     
     id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
-    national_id = db.Column(db.String(256), unique=True, nullable=False, index=True)  # ✅ Ensured non-null & indexed
+    national_id = db.Column(db.String(256), unique=True, nullable=False, index=True)  #  Ensured non-null & indexed
     image_path = db.Column(db.String(255), unique=True, nullable=True)
-    is_banned = db.Column(db.Boolean, default=False, index=True)  # ✅ Indexed for frequent filtering
+    is_banned = db.Column(db.Boolean, default=False, index=True)  #  Indexed for frequent filtering
 
     # Relationships
     visits = db.relationship('Visit', back_populates='visitor', lazy='dynamic')
@@ -75,7 +75,7 @@ class SecurityPersonnel(User):
     
     id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
     email = db.Column(db.String(100), unique=True, nullable=False, index=True)
-    national_id_encrypted = db.Column(db.String(512), unique=True, nullable=False, index=True)  # ✅ Ensured non-null
+    national_id_encrypted = db.Column(db.String(512), unique=True, nullable=False, index=True)  #  Ensured non-null
     password_hash = db.Column(db.String(256), nullable=False)
     secret_code_hash = db.Column(db.String(256), nullable=True)  
     is_active = db.Column(db.Boolean, default=True, index=True)  
@@ -142,5 +142,5 @@ class Admin(SecurityPersonnel):
 visitor_registrations = db.Table('visitor_registrations',
     db.Column('visitor_id', db.Integer, db.ForeignKey('visitors.id'), primary_key=True),
     db.Column('security_id', db.Integer, db.ForeignKey('security_personnel.id'), primary_key=True),
-    db.Column('registered_at', db.DateTime, default=datetime.datetime.utcnow, index=True)  # ✅ Indexed for better sorting
+    db.Column('registered_at', db.DateTime, default=datetime.datetime.utcnow, index=True)  #  Indexed for better sorting
 )

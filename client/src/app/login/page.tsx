@@ -3,12 +3,16 @@
 import { useState } from "react";
 import { login } from "@/app/actions/auth";
 import { useRouter } from "next/navigation";
+import { Eye, EyeOff } from 'lucide-react';
+
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showSecret, setShowSecret] = useState(false);
+
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -34,6 +38,10 @@ export default function LoginPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const toggleSecretVisibility = () => {
+    setShowSecret(!showSecret);
   };
 
   return (
@@ -66,14 +74,27 @@ export default function LoginPage() {
             <label htmlFor="password" className="mb-2 block text-sm font-medium">
               Password
             </label>
+            <div className="relative">
             <input
               id="password"
-              type="password"
+              type={showSecret ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full rounded-md border border-gray-700 bg-gray-900 px-3 py-2 text-white focus:border-blue-500 focus:outline-none"
               required
             />
+            <button
+          type="button"
+          onClick={toggleSecretVisibility}
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white focus:outline-none"
+        >
+          {showSecret ? (
+            <EyeOff size={20} />
+          ) : (
+            <Eye size={20} />
+          )}
+        </button>
+      </div>
           </div>
           
           <button

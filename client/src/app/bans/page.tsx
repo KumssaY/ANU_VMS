@@ -78,7 +78,7 @@ export default function BansPage() {
     : 'All Bans';
 
   return (
-    <div className="min-h-screen bg-[#3E3E3E] p-6">
+    <div className="min-h-screen p-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold text-white">{title}</h1>

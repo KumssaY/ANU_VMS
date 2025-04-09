@@ -119,7 +119,7 @@ export default function VisitDetailPage() {
 
   if (error || !visit) {
     return (
-      <div className="min-h-screen bg-[#3E3E3E] p-6">
+      <div className="min-h-screen p-6">
         <div className="max-w-6xl mx-auto">
           <div className="bg-red-100 border border-red-400 text-red-700 p-6 rounded-lg">
             <h2 className="text-xl font-bold mb-2">Error</h2>

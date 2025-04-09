@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { registerVisitor } from "../actions/visitor";
+import { Eye, EyeOff } from 'lucide-react';
+
 
 interface FormData {
   first_name: string;
@@ -33,6 +35,7 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [showCamera, setShowCamera] = useState(false);
+  const [showSecret, setShowSecret] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const router = useRouter();
@@ -153,8 +156,12 @@ export default function RegisterPage() {
     }
   };
 
+  const toggleSecretVisibility = () => {
+    setShowSecret(!showSecret);
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#3E3E3E] text-white p-6">
+    <div className="min-h-screen flex items-center justify-center text-white p-6">
       <div className="bg-[#222222] p-8 rounded-lg shadow-lg w-full max-w-md border border-gray-700">
         <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6">Visitor Registration</h2>
 
@@ -182,7 +189,21 @@ export default function RegisterPage() {
 
           <div>
             <label className="block text-sm text-gray-400">Secret Code</label>
-            <input type="text" name="secret_code" value={formData.secret_code} onChange={handleChange} required className="w-full p-3 bg-black text-white border border-gray-600 rounded-md" />
+            <div className="relative">
+              <input type={showSecret ? "text" : "password"} name="secret_code" value={formData.secret_code} onChange={handleChange} required className="w-full p-3 bg-black text-white border border-gray-600 rounded-md" />
+              
+              <button
+                type="button"
+                onClick={toggleSecretVisibility}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white focus:outline-none"
+              >
+                {showSecret ? (
+                  <EyeOff size={20} />
+                ) : (
+                  <Eye size={20} />
+                )}
+              </button>
+            </div>
           </div>
 
           {/* <div>

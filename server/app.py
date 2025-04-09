@@ -56,9 +56,9 @@ def create_admin_if_not_exists():
 
         db.session.add(admin)
         db.session.commit()
-        print("✅ Default admin account created.")
+        print("Default admin account created.")
     else:
-        print("✅ Admin already exists.")
+        print("Admin already exists.")
 
 if __name__ == "__main__":
     app = create_app()

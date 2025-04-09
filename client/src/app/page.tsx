@@ -8,7 +8,7 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-[#3E3E3E] text-white">
+    <div className="flex flex-col justify-center items-center min-h-screen text-white">
       <h1 className="text-4xl mb-6 font-bold">Visitor Management System</h1>
       <button
         id="register-button"

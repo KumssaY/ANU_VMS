@@ -4,6 +4,8 @@
 import { useState, useEffect } from 'react';
 import { recordVisit, recordLeave } from '@/app/actions/visits';
 import { toast } from 'react-hot-toast';
+import { Eye, EyeOff } from 'lucide-react';
+
 
 interface VisitLeaveFormProps {
   visitor: {
@@ -23,6 +25,7 @@ interface VisitLeaveFormProps {
 export default function VisitLeaveForm({ visitor, lastVisit, onComplete }: VisitLeaveFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [visitReason, setVisitReason] = useState('');
+  const [showSecret, setShowSecret] = useState(false);
   const [secretCode, setSecretCode] = useState('');
   const [formError, setFormError] = useState<string | null>(null);
   
@@ -89,6 +92,10 @@ export default function VisitLeaveForm({ visitor, lastVisit, onComplete }: Visit
     );
   }
   
+  const toggleSecretVisibility = () => {
+    setShowSecret(!showSecret);
+  };
+
   return (
     <div className="bg-[#222] p-6 rounded-lg shadow-lg border border-gray-700">
       <h2 className="text-xl font-semibold mb-4 text-gray-200">
@@ -131,15 +138,28 @@ export default function VisitLeaveForm({ visitor, lastVisit, onComplete }: Visit
           <label htmlFor="secret_code" className="block text-sm font-medium text-gray-300 mb-1">
             Secret Code:
           </label>
-          <input
-            type="password"
-            id="secret_code"
-            value={secretCode}
-            onChange={(e) => setSecretCode(e.target.value)}
-            className="w-full rounded-lg border border-gray-600 bg-[#2a2a2a] text-gray-200 shadow-sm focus:border-yellow-400 focus:ring-yellow-400 focus:ring-1 placeholder-gray-500 py-2 px-3"
-            placeholder="Enter your authorization code"
-            required
-          />
+          <div className="relative">
+            <input
+              type={showSecret ? "text" : "password"}
+              id="secret_code"
+              value={secretCode}
+              onChange={(e) => setSecretCode(e.target.value)}
+              className="w-full rounded-lg border border-gray-600 bg-[#2a2a2a] text-gray-200 shadow-sm focus:border-yellow-400 focus:ring-yellow-400 focus:ring-1 placeholder-gray-500 py-2 px-3"
+              placeholder="Enter your authorization code"
+              required
+            />
+            <button
+              type="button"
+              onClick={toggleSecretVisibility}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white focus:outline-none"
+            >
+              {showSecret ? (
+                <EyeOff size={20} />
+              ) : (
+                <Eye size={20} />
+              )}
+            </button>
+          </div>
           <p className="text-gray-400 text-xs mt-1">
             Your secret code is required to authorize this action.
           </p>

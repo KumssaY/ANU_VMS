@@ -1,3 +1,4 @@
+# routes/visitor_routes.py
 from flask import Blueprint, request, jsonify
 from sqlalchemy.exc import IntegrityError
 from controllers.visitor_controller import VisitorController
@@ -5,7 +6,7 @@ from models.user import Visitor
 
 visitor_bp = Blueprint("visitor", __name__)
 
-# ✅ Register a new visitor
+#Register a new visitor
 @visitor_bp.route("/register", methods=["POST"])
 def register_visitor():
     """
@@ -44,7 +45,7 @@ def register_visitor():
             "message": f"Registration failed: {str(e)}"
         }), 500
 
-# ✅ Identify an existing visitor
+#Identify an existing visitor
 @visitor_bp.route("/identify", methods=["POST"])
 def identify_visitor():
     """
@@ -59,7 +60,7 @@ def identify_visitor():
     data = request.json
     return VisitorController.identify_visitor(data)
 
-# ✅ Ban a visitor
+#Ban a visitor
 @visitor_bp.route("/ban", methods=["POST"])
 def ban_visitor():
     """
@@ -76,7 +77,7 @@ def ban_visitor():
     data = request.json
     return VisitorController.ban_visitor(data)
 
-# ✅ Unban a visitor
+#Unban a visitor
 @visitor_bp.route("/unban", methods=["PUT"])
 def unban_visitor():
     """
@@ -106,7 +107,7 @@ def report_incident():
     data = request.json
     return VisitorController.report_incident(data)
 
-# ✅ Get all incidents for a visitor by national ID
+#Get all incidents for a visitor by national ID
 @visitor_bp.route("/incidents/<string:national_id>", methods=["GET"])
 def get_visitor_incidents(national_id):
     """
@@ -117,7 +118,7 @@ def get_visitor_incidents(national_id):
     """
     return VisitorController.get_visitor_incidents(national_id)
 
-# ✅ Get a specific incident by ID
+#Get a specific incident by ID
 @visitor_bp.route("/incident/<int:incident_id>", methods=["GET"])
 def get_incident(incident_id):
     """
@@ -128,7 +129,7 @@ def get_incident(incident_id):
     """
     return VisitorController.get_incident_by_id(incident_id)
 
-# ✅ Get the last visit details for a visitor by visitor ID
+#Get the last visit details for a visitor by visitor ID
 @visitor_bp.route("/<int:visitor_id>/last-visit", methods=["GET"])
 def get_visitor_last_visit(visitor_id):
     """
@@ -139,7 +140,7 @@ def get_visitor_last_visit(visitor_id):
     """
     return VisitorController.get_last_visit(visitor_id=visitor_id)
 
-# ✅ Get the last visit details for a visitor by national ID
+#  Get the last visit details for a visitor by national ID
 @visitor_bp.route("/last-visit/<string:national_id>", methods=["GET"])
 def get_visitor_last_visit_by_national_id(national_id):
     """
@@ -150,7 +151,7 @@ def get_visitor_last_visit_by_national_id(national_id):
     """
     return VisitorController.get_last_visit(national_id=national_id)
 
-# ✅ Get all ban history for a visitor
+#  Get all ban history for a visitor
 @visitor_bp.route("/bans/history/<string:visitor_uuid>", methods=["GET"])
 def get_all_bans(visitor_uuid):
     """
@@ -162,7 +163,7 @@ def get_all_bans(visitor_uuid):
     return VisitorController.get_all_bans_for_visitor(visitor_uuid)
 
 
-# ✅ Get the current active ban for a visitor
+#  Get the current active ban for a visitor
 @visitor_bp.route("/bans/current/<string:visitor_uuid>", methods=["GET"])
 def get_current_ban(visitor_uuid):
     """
@@ -173,7 +174,7 @@ def get_current_ban(visitor_uuid):
     """
     return VisitorController.get_current_ban_for_visitor(visitor_uuid)
 
-# ✅ Get details of a specific ban
+#  Get details of a specific ban
 @visitor_bp.route("/bans/<int:ban_id>", methods=["GET"])
 def get_ban(ban_id):
     """

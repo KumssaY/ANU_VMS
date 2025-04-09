@@ -8,7 +8,7 @@ from extensions import db
 
 visit_bp = Blueprint("visit", __name__)
 
-# ✅ Create a visit
+# Create a visit
 @visit_bp.route("/visit", methods=["POST"])
 def create_visit():
     """
@@ -25,7 +25,7 @@ def create_visit():
     return VisitController.create_visit(data)
 
 
-# ✅ Mark visitor as leaving
+#Mark visitor as leaving
 @visit_bp.route("/leave", methods=["PUT"])
 def mark_leave():
     """
@@ -40,7 +40,7 @@ def mark_leave():
     data = request.json
     return VisitController.mark_leave(data)
 
-# ✅ Get a single visit by ID
+#Get a single visit by ID
 @visit_bp.route("/visit/<int:visit_id>", methods=["GET"])
 def get_visit(visit_id):
     """

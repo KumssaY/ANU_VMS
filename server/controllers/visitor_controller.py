@@ -80,7 +80,7 @@ class VisitorController:
                 visitor_info = best_match.to_dict()
 
         if visitor_info:
-            # ✅ Include ban status & history
+            #  Include ban status & history
             response_data = visitor_info.to_dict()
             response_data["is_banned"] = visitor_info.is_banned
 

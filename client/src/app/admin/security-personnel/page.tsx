@@ -1,6 +1,7 @@
 // src/app/admin/security-personnel/page.tsx
 import { getAllSecurityPersonnel } from "@/app/actions/admin";
 import { requireAdmin } from "@/app/actions/auth";
+import { DeactivateButton } from "./deactivate-button";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -127,18 +128,16 @@ async function SecurityPersonnelTable({
                     <div className="flex space-x-2">
                       <Link 
                         href={`/admin/security-personnel/${personnel.id}`}
-                        className="text-blue-400 hover:text-blue-300"
+                        className="text-blue-400 hover:text-blue-300 pt-2 pr-8"
                       >
                         View
                       </Link>
-                      {personnel.is_active && (
-                        <Link 
-                          href={`/admin/security-personnel/${personnel.id}/deactivate`}
-                          className="text-red-400 hover:text-red-300"
-                        >
-                          Deactivate
-                        </Link>
-                      )}
+                      <div className="flex space-x-3">
+                        <DeactivateButton 
+                          email={personnel.email} 
+                          isActive={personnel.is_active} 
+                        />
+                      </div>
                     </div>
                   </td>
                 </tr>

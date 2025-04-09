@@ -13,7 +13,7 @@ import {
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { DeactivateButton } from "./deactivate-button";
+import { DeactivateButton } from "../deactivate-button";
 import { UpdateCodeForm } from "./update-code";
 
 interface ActivityTabsProps {
@@ -57,13 +57,14 @@ export default async function SecurityPersonnelDetailPage({
   params,
   searchParams,
 }: {
-  params: { id: string };
+  params: { id: string, email: string };
   searchParams?: { tab?: string; page?: string };
 }) {
   // Server component to check if user is admin
   await requireAdmin();
   
   const id = params.id;
+  const email = params.email;
   const activeTab = searchParams?.tab || '';
   const currentPage = searchParams?.page ? parseInt(searchParams.page) : 1;
   
@@ -97,9 +98,10 @@ export default async function SecurityPersonnelDetailPage({
           </div>
           
           <div className="flex space-x-3">
-            {personnel.is_active && (
-              <DeactivateButton id={id} />
-            )}
+            <DeactivateButton 
+              email={personnel.email} 
+              isActive={personnel.is_active} 
+            />
           </div>
         </div>
 

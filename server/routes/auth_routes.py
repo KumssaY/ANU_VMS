@@ -7,7 +7,8 @@ from controllers.auth_controller import (
     register_admin,
     register_security_personnel,
     update_security_code,
-    deactivate_security_personnel
+    deactivate_security_personnel,
+    activate_security_personnel
 )
 from utils.auth import is_admin
 
@@ -40,3 +41,8 @@ def update_security_code_route():
 @jwt_required()
 def deactivate_security_route():
     return deactivate_security_personnel()
+
+@auth_bp.route("/security/activate", methods=["PUT"])
+@jwt_required()
+def activate_security_route():
+    return activate_security_personnel()

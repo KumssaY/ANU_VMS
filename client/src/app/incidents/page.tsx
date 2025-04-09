@@ -28,7 +28,7 @@ export default function IncidentsListPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#3E3E3E] p-6">
+    <div className="min-h-screen p-6">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-2xl font-bold mb-6 text-white">Incidents Management</h1>
         

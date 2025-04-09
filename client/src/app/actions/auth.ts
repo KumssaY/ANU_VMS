@@ -264,6 +264,44 @@ export async function deactivateSecurityPersonnel(
 }
 
 /**
+ * Activate security personnel (admin only)
+ */
+export async function activateSecurityPersonnel(
+  email: string
+): Promise<AuthResponse> {
+  try {
+    const token = await getAuthToken();
+    
+    if (!token) {
+      return { success: false, message: "Authentication required" };
+    }
+
+    const response = await fetch(`${API_BASE_URL}/auth/security/activate`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      return { success: false, message: errorData.error || "Failed to activate security personnel" };
+    }
+
+    const data = await response.json();
+    return { success: true, message: data.message || "Security personnel activated successfully" };
+  } catch (error) {
+    console.error("activate security personnel error:", error);
+    return { 
+      success: false, 
+      message: error instanceof Error ? error.message : "An unexpected error occurred" 
+    };
+  }
+}
+
+/**
  * Helper function to get the auth token from cookies
  */
 const getAuthToken = async (): Promise<string | null> => {
